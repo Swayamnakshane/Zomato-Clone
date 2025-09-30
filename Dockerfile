@@ -1,5 +1,5 @@
 # Use an official Node.js image as the base (LTS version for stability)
-FROM node:18-alpine AS builder
+FROM node:18-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -15,16 +15,6 @@ COPY . .
 
 # Build the React app
 RUN npm run build
-
-# ---- Production Stage ----
-FROM node:18-alpine
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the built React app from the builder stage
-COPY --from=builder /app .
-
 # Expose the port the app runs on
 EXPOSE 3000
 
